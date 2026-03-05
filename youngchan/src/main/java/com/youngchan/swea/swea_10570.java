@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 public class swea_10570 {
     static boolean isPalindrome(int x){
-        String s = String.valueOf(x);
+        String s = String.valueOf(x);      //Integer.toString(x); 도 가능
         String r = new StringBuilder(s).reverse().toString();
         return s.equals(r);
     }
