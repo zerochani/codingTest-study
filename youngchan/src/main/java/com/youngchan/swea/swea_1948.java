@@ -17,10 +17,10 @@ public class swea_1948 {
             int totalDays = 0;
             //월이 같다면
             if(fm == sm){
-                totalDays = sd - fd;
+                totalDays = sd - fd + 1;
             }else{//월이 다른경우
                 //첫번째 달
-                totalDays += days[fm] - fd + 1;
+                totalDays += (days[fm] - fd + 1);
                 //중간 달
                 for(int i=fm+1; i<sm; i++){
                     totalDays += days[i];
