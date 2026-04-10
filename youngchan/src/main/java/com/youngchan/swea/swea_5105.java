@@ -4,7 +4,7 @@ import java.io.*;
 public class swea_5105 {
     static int[] dx = {-1,1,0,0};
     static int[] dy = {0,0,-1,1};
-    static int[][] distance;
+    static boolean[][] visited;
     static int[][] map;
     static int n;
     public static void main(String[] args) throws IOException{
@@ -13,7 +13,7 @@ public class swea_5105 {
         for(int tc=1; tc<=t; tc++){
             n = Integer.parseInt(br.readLine());
             map = new int[n][n];
-            distance = new int[n][n];
+            visited = new boolean[n][n];
             int startX=0;
             int startY=0;
             for(int i=0; i<n; i++){
@@ -32,24 +32,27 @@ public class swea_5105 {
 
     static int bfs(int x, int y){
         Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{x,y});
-        distance[x][y] = 0;
+        q.offer(new int[]{x,y,0});
+        visited[x][y] = true;
 
         while(!q.isEmpty()){
             int[] current = q.poll();
             int curX = current[0];
             int curY = current[1];
+            int dist = current[2];
 
             for(int d=0; d<4; d++){
                 int nx = curX + dx[d];
                 int ny = curY + dy[d];
 
-                if(nx>=0 && nx<n && ny<=0 && ny<n && map[nx][ny] != 1 && distance[nx][ny] == 0){
+                if(nx>=0 && nx<n && ny>=0 && ny<n && !visited[nx][ny]){
                     if(map[nx][ny] == 3){
-                        return distance[curX][curY];
+                        return dist;
                     }
-                    distance[nx][ny] = distance[curX][curY] + 1;
-                    q.offer(new int[]{nx,ny});
+                    if(map[nx][ny] == 0){
+                        visited[nx][ny] = true;
+                        q.offer(new int[]{nx,ny,dist+1});
+                    }
                 }
             }
         }
